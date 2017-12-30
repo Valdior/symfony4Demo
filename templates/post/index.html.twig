@@ -6,4 +6,26 @@
 
     <h1>Welcome to my post</h1>
 
+    {% if posts is defined %}
+    <p>Il existe {{ posts|length }} posts</p>
+
+    <table class="table">
+        <thead>
+            <td>Title</td>
+            <td>Published</td>
+            <td>Action</td>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <td>{{ post.title }}</td>
+            <td>{{ post.published }}</td>
+            <td></td>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    {% else %}
+    <p>Il n'existe pas encore de post !</p>
+    {% endif %}
+
 {% endblock %}

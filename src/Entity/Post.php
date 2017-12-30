@@ -3,8 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource; 
 
 /**
+ * An Post
+ * 
+ * @ApiResource
+ * 
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  */
 class Post
@@ -65,6 +70,26 @@ class Post
     }
 
     /**
+     * Get the value of content
+     */ 
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set the value of content
+     *
+     * @return  self
+     */ 
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
      * Get the value of published
      */ 
     public function getPublished()
@@ -82,5 +107,5 @@ class Post
         $this->published = $published;
 
         return $this;
-    }
+    }    
 }
