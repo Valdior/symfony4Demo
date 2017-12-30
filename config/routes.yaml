@@ -5,3 +5,7 @@
 core.index:
    path: /
    controller: App\Controller\CoreController::index
+
+post.index:
+   path: /post
+   controller: App\Controller\PostController::index  
