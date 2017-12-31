@@ -12,6 +12,8 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  * @ORM\Table(name="user")
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
+ * 
+ * @author Valdior <marechal.pierre@live.be>
  */
 class User implements AdvancedUserInterface, \Serializable
 {
@@ -57,45 +59,84 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isAccountNonExpired;
+    private $isExpired;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isAccountNonLocked;
+    private $isLocked;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isCredentialsNonExpired;
+    private $isCredentialsExpired;
+
+     /**
+     * @var array
+     *
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     public function __construct()
     {
         $this->isActive = true;
-        $this->isAccountNonExpired = true;
-        $this->isAccountNonLocked = true;
-        $this->isCredentialsNonExpired = true;
+        $this->isExpired = false;
+        $this->isLocked = false;
+        $this->isCredentialsExpired = false;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }
 
-    public function getSalt()
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * {@inheritdoc}
+     */
+    public function getSalt(): ?string
     {
-        // The bcrypt algorithm doesn't require a separate salt.
-        // You *may* need a real salt if you choose a different encoder.
+        // See "Do you need to use a Salt?" at https://symfony.com/doc/current/cookbook/security/entity_provider.html
+        // we're using bcrypt in security.yml to encode the password, so
+        // the salt value is built-in and you don't have to generate one
+
         return null;
     }
 
-    public function getRoles()
+    /**
+     * Returns the roles or permissions granted to the user for security.
+     */
+    public function getRoles(): array
     {
-        return array('ROLE_USER');
+        $roles = $this->roles;
+
+        // guarantees that a user always has at least one role for security
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return array_unique($roles);
     }
 
-    public function eraseCredentials()
+    public function setRoles(array $roles): void
     {
+        $this->roles = $roles;
     }
 
-    /** @see \Serializable::serialize() */
+    /**
+     * Removes sensitive data from the user.
+     *
+     * {@inheritdoc}
+     */
+    public function eraseCredentials(): void
+    {
+        // if you had a plainPassword property, you'd nullify it here
+        // $this->plainPassword = null;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @see \Serializable::serialize()
+     */
     public function serialize()
     {
         return serialize(array(
@@ -108,7 +149,10 @@ class User implements AdvancedUserInterface, \Serializable
         ));
     }
 
-    /** @see \Serializable::unserialize() */
+    /**
+     * {@inheritdoc}
+     * @see \Serializable::unserialize()
+     */
     public function unserialize($serialized)
     {
         list (
@@ -222,61 +266,61 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get the value of isAccountNonExpired
+     * Get the value of isExpired
      */ 
-    public function getIsAccountNonExpired()
+    public function getIsExpired()
     {
-        return $this->isAccountNonExpired;
+        return $this->isExpired;
     }
 
     /**
-     * Set the value of isAccountNonExpired
+     * Set the value of isExpired
      *
      * @return  self
      */ 
-    public function setIsAccountNonExpired($isAccountNonExpired)
+    public function setIsExpired($isExpired)
     {
-        $this->isAccountNonExpired = $isAccountNonExpired;
+        $this->isExpired = $isExpired;
 
         return $this;
     }
 
     /**
-     * Get the value of isAccountNonLocked
+     * Get the value of isLocked
      */ 
-    public function getIsAccountNonLocked()
+    public function getIsLocked()
     {
-        return $this->isAccountNonLocked;
+        return $this->isLocked;
     }
 
     /**
-     * Set the value of isAccountNonLocked
+     * Set the value of isLocked
      *
      * @return  self
      */ 
-    public function setIsAccountNonLocked($isAccountNonLocked)
+    public function setIsLocked($isLocked)
     {
-        $this->isAccountNonLocked = $isAccountNonLocked;
+        $this->isLocked = $isLocked;
 
         return $this;
     }
 
     /**
-     * Get the value of isCredentialsNonExpired
+     * Get the value of isCredentialsExpired
      */ 
-    public function getIsCredentialsNonExpired()
+    public function getIsCredentialsExpired()
     {
-        return $this->isCredentialsNonExpired;
+        return $this->isCredentialsExpired;
     }
 
     /**
-     * Set the value of isCredentialsNonExpired
+     * Set the value of isCredentialsExpired
      *
      * @return  self
      */ 
-    public function setIsCredentialsNonExpired($isCredentialsNonExpired)
+    public function setIsCredentialsExpired($isCredentialsExpired)
     {
-        $this->isCredentialsNonExpired = $isCredentialsNonExpired;
+        $this->isCredentialsExpired = $isCredentialsExpired;
 
         return $this;
     }
@@ -284,5 +328,20 @@ class User implements AdvancedUserInterface, \Serializable
     public function isEnabled()
     {
         return $this->isActive;
+    }
+
+    public function isAccountNonExpired()
+    {
+        return !$this->isExpired;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return !$this->isLocked;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return !$this->isCredentialsExpired;
     }
 }
