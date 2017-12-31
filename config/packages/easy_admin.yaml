@@ -1,4 +1,6 @@
 easy_admin:
-   entities:
-       # List the entity class name you want to manage
-       - App\Entity\Post
+    site_name: 'Symfony 4 Demo'
+    entities:
+        # List the entity class name you want to manage
+        Post:
+            class: App\Entity\Post

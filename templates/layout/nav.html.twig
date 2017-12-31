@@ -42,20 +42,20 @@
         {% endif %}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.username }} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('admin') }}">Admin</a></li>
                     {% endif %}            
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
+                    <li><a href="#"> Profile</a></li>
+                    <li><a href="#"> Something else here</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                    <li><a href="{{ path('logout') }}"><i class="fas fa-sign-out"></i> Déconnexion</a></li>
                 </ul>
             </li>
         {% else %}
-            <li><a href="{{ path('user_registration') }}">Inscription</a></li>
-            <li><a href="{{ path('login') }}">Connexion</a></li>
+            <li><a href="{{ path('user_registration') }}"><i class="fas fa-user"></i> Inscription</a></li>
+            <li><a href="{{ path('login') }}"><i class="fas fa-sign-in"></i> Connexion</a></li>
         {% endif %}
         
       </ul>

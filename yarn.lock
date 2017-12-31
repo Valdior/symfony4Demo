@@ -2,6 +2,26 @@
 # yarn lockfile v1
 
 
+"@fortawesome/fontawesome-free-brands@^5.0.2":
+  version "5.0.2"
+  resolved "https://npm.fontawesome.com/562E0954-5C3F-4449-8924-8195E0BD9772/@fortawesome/fontawesome-free-brands/-/fontawesome-free-brands-5.0.2.tgz#a1cc602eec40a379a3dd8a44c78b31110dd3d3d3"
+
+"@fortawesome/fontawesome-pro-light@^5.0.2":
+  version "5.0.2"
+  resolved "https://npm.fontawesome.com/562E0954-5C3F-4449-8924-8195E0BD9772/@fortawesome/fontawesome-pro-light/-/fontawesome-pro-light-5.0.2.tgz#9b3316ef2150ac8bc2ae050989840a958e2da7a6"
+
+"@fortawesome/fontawesome-pro-regular@^5.0.2":
+  version "5.0.2"
+  resolved "https://npm.fontawesome.com/562E0954-5C3F-4449-8924-8195E0BD9772/@fortawesome/fontawesome-pro-regular/-/fontawesome-pro-regular-5.0.2.tgz#90b3649a99788ba2c5867794e19ae214a6b29ab7"
+
+"@fortawesome/fontawesome-pro-solid@^5.0.2":
+  version "5.0.2"
+  resolved "https://npm.fontawesome.com/562E0954-5C3F-4449-8924-8195E0BD9772/@fortawesome/fontawesome-pro-solid/-/fontawesome-pro-solid-5.0.2.tgz#ed6ca191dceae3ca8c12d316f89f07f2352473b3"
+
+"@fortawesome/fontawesome-pro-webfonts@^1.0.1":
+  version "1.0.1"
+  resolved "https://npm.fontawesome.com/562E0954-5C3F-4449-8924-8195E0BD9772/@fortawesome/fontawesome-pro-webfonts/-/fontawesome-pro-webfonts-1.0.1.tgz#f4f5015c11346d6803482680ae72aad53e84e6b3"
+
 "@symfony/webpack-encore@^0.17.0":
   version "0.17.0"
   resolved "https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-0.17.0.tgz#6726f4e3393f440c92c29ba5a068504bb7a1adc4"

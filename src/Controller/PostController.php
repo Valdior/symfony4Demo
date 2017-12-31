@@ -12,7 +12,6 @@ class PostController extends Controller
     {
         $posts = $doctrine->getRepository(Post::class)->findAll();
 
-
         return $this->render("post/index.html.twig", compact('posts'));
     }
 }
