@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
  */
-class User implements UserInterface, \Serializable
+class User implements AdvancedUserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -50,13 +50,31 @@ class User implements UserInterface, \Serializable
     private $email;
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(type="boolean")
      */
     private $isActive;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAccountNonExpired;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAccountNonLocked;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isCredentialsNonExpired;
 
     public function __construct()
     {
         $this->isActive = true;
+        $this->isAccountNonExpired = true;
+        $this->isAccountNonLocked = true;
+        $this->isCredentialsNonExpired = true;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }
@@ -84,6 +102,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+            $this->isActive,
             // see section on salt below
             // $this->salt,
         ));
@@ -96,6 +115,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+            $this->isActive,
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized);
@@ -199,5 +219,70 @@ class User implements UserInterface, \Serializable
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * Get the value of isAccountNonExpired
+     */ 
+    public function getIsAccountNonExpired()
+    {
+        return $this->isAccountNonExpired;
+    }
+
+    /**
+     * Set the value of isAccountNonExpired
+     *
+     * @return  self
+     */ 
+    public function setIsAccountNonExpired($isAccountNonExpired)
+    {
+        $this->isAccountNonExpired = $isAccountNonExpired;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of isAccountNonLocked
+     */ 
+    public function getIsAccountNonLocked()
+    {
+        return $this->isAccountNonLocked;
+    }
+
+    /**
+     * Set the value of isAccountNonLocked
+     *
+     * @return  self
+     */ 
+    public function setIsAccountNonLocked($isAccountNonLocked)
+    {
+        $this->isAccountNonLocked = $isAccountNonLocked;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of isCredentialsNonExpired
+     */ 
+    public function getIsCredentialsNonExpired()
+    {
+        return $this->isCredentialsNonExpired;
+    }
+
+    /**
+     * Set the value of isCredentialsNonExpired
+     *
+     * @return  self
+     */ 
+    public function setIsCredentialsNonExpired($isCredentialsNonExpired)
+    {
+        $this->isCredentialsNonExpired = $isCredentialsNonExpired;
+
+        return $this;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
     }
 }
