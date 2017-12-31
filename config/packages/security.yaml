@@ -4,15 +4,24 @@ security:
         App\Entity\User:
             algorithm: bcrypt
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_API:         ROLE_USER
+        ROLE_ADMIN:       ROLE_API
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     providers:
         user_db:
             entity: { class: App\Entity\User, property: username }
+        api_key_user_provider:
+            id: App\Security\ApiKeyUserProvider
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        # api:
+        #     pattern: ^/api
+        #     stateless: false
+        #     simple_preauth:
+        #         authenticator: App\Security\ApiKeyAuthenticator
+        #     provider: api_key_user_provider
         main:
             anonymous: ~
             provider: user_db
@@ -20,11 +29,12 @@ security:
                 login_path: login
                 check_path: login
             logout:       true
-
+        
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, roles: ROLE_API }
         - { path: ^/admin, roles: ROLE_ADMIN }        
 
             # activate different ways to authenticate

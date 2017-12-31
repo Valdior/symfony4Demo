@@ -78,6 +78,11 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $roles = [];
 
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $apikey;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -111,7 +116,7 @@ class User implements AdvancedUserInterface, \Serializable
 
         // guarantees that a user always has at least one role for security
         if (empty($roles)) {
-            $roles[] = 'ROLE_USER';
+            $roles[] = 'ROLE_ADMIN';
         }
 
         return array_unique($roles);
@@ -343,5 +348,25 @@ class User implements AdvancedUserInterface, \Serializable
     public function isCredentialsNonExpired()
     {
         return !$this->isCredentialsExpired;
+    }
+
+    /**
+     * Get the value of apikey
+     */ 
+    public function getApikey()
+    {
+        return $this->apikey;
+    }
+
+    /**
+     * Set the value of apikey
+     *
+     * @return  self
+     */ 
+    public function setApikey($apikey)
+    {
+        $this->apikey = $apikey;
+
+        return $this;
     }
 }
