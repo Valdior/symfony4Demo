@@ -1,6 +1,10 @@
 easy_admin:
     site_name: 'Symfony 4 Demo'
+    design:
+        menu: 
+            - { entity: 'Post', label: 'admin.posts.title', icon: 'tag' }
     entities:
         # List the entity class name you want to manage
         Post:
+            label: admin.posts.title
             class: App\Entity\Post
