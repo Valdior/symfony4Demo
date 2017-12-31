@@ -10,6 +10,9 @@
         {% include('layout/nav.html.twig') %}
 
         <div class="container">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <p>Username: {{ app.user.username }}</p>
+            {% endif %}
             {% block body %}{% endblock %}
         </div>
 
