@@ -19,5 +19,9 @@ core.index:
    controller: App\Controller\CoreController::index
 
 post.index:
-   path: /post
+   path: /{_locale}/post
    controller: App\Controller\PostController::index  
+
+club.index:
+   path: /{_locale}/club
+   controller: App\Controller\ClubController::index    

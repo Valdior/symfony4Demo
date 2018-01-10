@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clubs !{% endblock %}
+
+{% block body %}
+
+    <h1>Voici les clubs</h1>
+
+    <ul>
+    {% for club in clubs %}
+        <li>{{ club.number }} - {{ club.acronym }} - {{ club.name }}</li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
