@@ -4,8 +4,9 @@ security:
         App\Entity\User:
             algorithm: bcrypt
     role_hierarchy:
+        ROLE_ARCHER:      ROLE_USER
         ROLE_API:         ROLE_USER
-        ROLE_ADMIN:       ROLE_API
+        ROLE_ADMIN:       ROLE_API, ROLE_ARCHER
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     providers:
         user_db:

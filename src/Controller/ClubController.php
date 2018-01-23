@@ -11,7 +11,7 @@ class ClubController extends Controller
 {
     public function index(RegistryInterface $doctrine)
     {
-        $clubs = $doctrine->getRepository(Club::class)->findAll();
+        $clubs = $doctrine->getRepository(Club::class)->findBy([],['region' => 'ASC', 'number' => 'ASC']);
 
         return $this->render("club/index.html.twig", compact('clubs'));
     }

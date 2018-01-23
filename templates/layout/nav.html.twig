@@ -37,6 +37,9 @@
                     <li><a href="{{ path('admin') }}">Admin</a></li>
                     {% endif %}            
                     <li><a href="#"> Profile</a></li>
+                     {% if is_granted('ROLE_ARCHER') %}
+                    <li><a href="">Archer</a></li>
+                    {% endif %}     
                     <li><a href="#"> Something else here</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="{{ path('logout') }}"><i class="fas fa-sign-out"></i> Déconnexion</a></li>

@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiResource; 
+use App\Entity\Region;
+use App\Entity\Affiliate;
 
 /**
  * An Club
@@ -37,23 +40,27 @@ class Club
     private $number;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Region", inversedBy="clubs")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $region;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Affiliate", mappedBy="club")
+     */
+    private $members;
+
+    public function __construct()
+    {
+        $this->members = new ArrayCollection();
+    }
+
+    /**
      * Get the value of id
      */ 
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */ 
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**
@@ -115,4 +122,55 @@ class Club
 
         return $this;
     }
+
+    /**
+     * Get the value of region
+     */ 
+    public function getRegion(): Region
+    {
+        return $this->region;
+    }
+
+    /**
+     * Set the value of region
+     *
+     * @return  self
+     */ 
+    public function setRegion(Region $region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     *  @return Collection|Affiliate[]
+     */ 
+    public function getMembers()
+    {
+        return $this->members;
+    }
+
+    /**
+     * Add the value of members
+     *
+     * @return  self
+     */ 
+    public function addMember(Affiliate $member)
+    {
+        $this->members[] = $member;
+
+        return $this;
+    }
+
+    /**
+     * Remove the value of members
+     *
+     * @return  self
+     */ 
+    public function removeMember(Affiliate $member)
+    {
+        $this->members->removeElement($member);
+    }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -83,12 +84,29 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $apikey;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Affiliate", mappedBy="archer")
+     */
+    private $affiliations;
+
+
     public function __construct()
     {
         $this->isActive = true;
         $this->isExpired = false;
         $this->isLocked = false;
         $this->isCredentialsExpired = false;
+        $this->affiliations = new ArrayCollection();
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }
@@ -368,5 +386,75 @@ class User implements AdvancedUserInterface, \Serializable
         $this->apikey = $apikey;
 
         return $this;
+    }
+
+    /**
+     * Get the value of lastname
+     */ 
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set the value of lastname
+     *
+     * @return  self
+     */ 
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of firstname
+     */ 
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Set the value of firstname
+     *
+     * @return  self
+     */ 
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of affiliations
+     */ 
+    public function getAffiliations()
+    {
+        return $this->affiliations;
+    }
+
+    /**
+     * Set the value of affiliations
+     *
+     * @return  self
+     */ 
+    public function addAffiliation(Affiliate $affiliation)
+    {
+        $this->affiliations[] = $affiliations;
+
+        return $this;
+    }
+
+    /**
+     * Remove the value of affiliations
+     *
+     * @return  self
+     */ 
+    public function removeAffiliation(affiliations $affiliation)
+    {
+        $this->affiliations->removeElement($affiliation);
     }
 }
