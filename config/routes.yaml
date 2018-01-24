@@ -20,8 +20,18 @@ core.index:
 
 post.index:
    path: /{_locale}/post
-   controller: App\Controller\PostController::index  
+   controller: App\Controller\PostController::index
 
 club.index:
    path: /{_locale}/club
-   controller: App\Controller\ClubController::index    
+   controller: App\Controller\ClubController::index
+
+club.add:
+   path: /{_locale}/club/add
+   controller: App\Controller\ClubController::add
+   
+club.show:
+   path: /{_locale}/club/{club}
+   controller: App\Controller\ClubController::show
+
+

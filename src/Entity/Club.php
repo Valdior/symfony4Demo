@@ -126,7 +126,7 @@ class Club
     /**
      * Get the value of region
      */ 
-    public function getRegion(): Region
+    public function getRegion()
     {
         return $this->region;
     }

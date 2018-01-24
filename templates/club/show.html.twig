@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ club.name }} !{% endblock %}
+
+{% block body %}
+
+    <section>
+        <h1>{{ club.name }}</h1>
+
+        <article>
+            <h3>Liste des membres</h3>
+
+            {% for member in club.members %}
+            <p>Il y a 1 member</p>
+            {% else %}
+            <p>Pas de members.. :'(</p>
+            {% endfor %}
+
+            <a href="{{ path("core.index") }}"><span class="btn btn-primary">Ajouter un archer</span></a>
+        </article>
+        <article>
+            <h3>Région</h3>
+            <p>{{ club.region.name }}</p>
+        </article>
+    </section>
+{% endblock %}

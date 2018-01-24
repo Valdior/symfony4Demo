@@ -6,10 +6,21 @@
 
     <h1>Voici les clubs</h1>
 
-    <ul>
-    {% for club in clubs %}
-        <li>{{ club.number }} - {{ club.acronym }} - {{ club.name }}</li>
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ message }}
+        </div>
     {% endfor %}
-    </ul>
+{% endfor %}
+
+            <ul>
+            {% for club in clubs %}
+                <li><a href="{{ path("club.show", {'club': club.id}) }}">{{ club.number }} - {{ club.acronym }} - {{ club.name }}</a></li>
+            {% endfor %}
+            </ul>
+
+    <a href="{{ path("club.add") }}"><span class="btn btn-primary">Ajouter un club</span></a>
 
 {% endblock %}

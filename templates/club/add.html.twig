@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clubs !{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter un club</h1>
+
+    {{ include("club/form.html.twig") }}
+
+    <a href="{{ path("club.index") }}"><span class="btn btn-primary">Retourner à la liste</span></a>
+
+{% endblock %}
