@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -10,6 +11,9 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 
 /**
+ *  An User
+ *  @ApiResource
+ * 
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user")
  * @UniqueEntity(fields="email", message="Email already taken")
@@ -139,6 +143,22 @@ class User implements AdvancedUserInterface, \Serializable
         }
 
         return array_unique($roles);
+    }
+
+    /**
+     * Add role
+     */ 
+    public function addRole(string $role): void
+    {
+        $this->roles[] = $role;
+    }
+
+    /**
+     * Remove role
+     */ 
+    public function removeRole(string $role)
+    {
+        $this->roles->removeElement($role);
     }
 
     public function setRoles(array $roles): void
