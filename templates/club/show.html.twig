@@ -16,7 +16,7 @@
             <p>Pas de members.. :'(</p>
             {% endfor %}
 
-            <a href="{{ path("core.index") }}"><span class="btn btn-primary">Ajouter un archer</span></a>
+            <a href="{{ path("club.add.affiliate", {'club': club.id}) }}"><span class="btn btn-primary">Ajouter un archer</span></a>
         </article>
         <article>
             <h3>Région</h3>

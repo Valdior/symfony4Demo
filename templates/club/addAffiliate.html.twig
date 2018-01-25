@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clubs !{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter un archer</h1>
+
+    {{ form_start(form, { 'attr': {'class': 'form form-horizontal'} }) }}            
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+    <a href="{{ path("club.index") }}"><span class="btn btn-primary">Retourner à la liste</span></a>
+
+{% endblock %}

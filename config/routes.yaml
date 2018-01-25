@@ -34,4 +34,8 @@ club.show:
    path: /{_locale}/club/{club}
    controller: App\Controller\ClubController::show
 
+club.add.affiliate:
+   path: /{_locale}/club/{club}/addAffiliate
+   controller: App\Controller\ClubController::addAffiliateMember
+
 

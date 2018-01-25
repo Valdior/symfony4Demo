@@ -114,4 +114,44 @@ class Affiliate
 
         return $this;
     }
+
+    /**
+     * Get the value of archer
+     */ 
+    public function getArcher()
+    {
+        return $this->archer;
+    }
+
+    /**
+     * Set the value of archer
+     *
+     * @return  self
+     */ 
+    public function setArcher($archer)
+    {
+        $this->archer = $archer;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of club
+     */ 
+    public function getClub()
+    {
+        return $this->club;
+    }
+
+    /**
+     * Set the value of club
+     *
+     * @return  self
+     */ 
+    public function setClub($club)
+    {
+        $this->club = $club;
+
+        return $this;
+    }
 }

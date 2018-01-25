@@ -100,6 +100,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $firstname;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isArcher;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Affiliate", mappedBy="archer")
      */
     private $affiliations;
@@ -107,6 +112,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function __construct()
     {
+        $this->isArcher = false;
         $this->isActive = true;
         $this->isExpired = false;
         $this->isLocked = false;
@@ -389,6 +395,11 @@ class User implements AdvancedUserInterface, \Serializable
         return !$this->isCredentialsExpired;
     }
 
+    public function isNonArcher()
+    {
+        return !$this->isArcher;
+    }
+
     /**
      * Get the value of apikey
      */ 
@@ -477,5 +488,30 @@ class User implements AdvancedUserInterface, \Serializable
     public function removeAffiliation(affiliations $affiliation)
     {
         $this->affiliations->removeElement($affiliation);
+    }
+
+    /**
+     * Get the value of isArcher
+     */ 
+    public function getIsArcher()
+    {
+        return $this->isArcher;
+    }
+
+    /**
+     * Set the value of isArcher
+     *
+     * @return  self
+     */ 
+    public function setIsArcher($isArcher)
+    {
+        $this->isArcher = $isArcher;
+
+        return $this;
+    }
+
+    public function getFullName()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }

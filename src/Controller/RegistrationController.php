@@ -30,6 +30,13 @@ class RegistrationController extends Controller
             $user->setPassword($password);
             $user->addRole("ROLE_USER");
 
+            // Si l'utilisateur se dit Archer, je lui donne directement le ROLE
+            // TODO: Mettre une event sur le champs isArcher pour modifier automatiquement le ROLE
+            if(!$user->isNonArcher())
+            {
+                $user->addRole("ROLE_ARCHER");
+            }
+
             // 4) save the User!
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

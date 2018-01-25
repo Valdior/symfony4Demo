@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Club;
 use App\Form\ClubType;
+use App\Entity\Affiliate;
+use App\Form\AffiliateType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -45,6 +47,29 @@ class ClubController extends Controller
 
         return $this->render(
             'club/add.html.twig',
+            array('form' => $form->createView())
+        );
+    }
+
+    public function addAffiliateMember(Club $club, Request $request)
+    {
+        $affiliate = new Affiliate();
+        $form = $this->createForm(AffiliateType::class, $affiliate);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($affiliate);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'L\'affiliation de l\'archer a bien été enregistré.');
+
+            return $this->redirectToRoute('club.index');
+        }
+
+        return $this->render(
+            'club/addAffiliate.html.twig',
             array('form' => $form->createView())
         );
     }

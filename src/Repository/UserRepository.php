@@ -13,6 +13,15 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    public function ListAllArcher()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->andWhere('u.isArcher = :isArcher')
+            ->setParameter('isArcher', true);
+
+        return $qb;
+    }
+
     /*
     public function findBySomething($value)
     {
