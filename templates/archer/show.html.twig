@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ archer.fullname }} !{% endblock %}
+
+{% block body %}
+
+    <section>
+        <h1>{{ archer.fullname }}</h1>
+
+        <h3>Bientôt vous serez tout ce qu'il y a à savoir sur cet archer !!!</h3>
+        <ul>
+            <li>Les clubs auxquels il a appartenu</li>
+            <li>les compétitions auxquels il a participé</li>            
+            <li>Les points qu'il a fait</li>
+            <li>les compétitions auxquels il compte participer</li>
+            <li>Et bien plus encore, enfin s'il veut les montrées ;)</li>
+        </ul>
+    </section>
+{% endblock %}

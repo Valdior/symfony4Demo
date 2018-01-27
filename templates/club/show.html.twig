@@ -12,7 +12,7 @@
 
             <ul>
             {% for member in club.members %}
-                <li>{{ member.registrationNumber }} - {{ member.archer.fullname }}</li>
+                <li><a href="{{ path('archer.show', {'archer': member.archer.id}) }}">{{ member.registrationNumber }} - {{ member.archer.fullname }}</a></li>
             {% else %}
                 <li>Pas de members.. :'(</li>
             {% endfor %}

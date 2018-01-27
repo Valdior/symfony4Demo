@@ -1,0 +1,7 @@
+archer.index:
+   path: /{_locale}/archer
+   controller: App\Controller\ArcherController::index
+
+archer.show:
+   path: /{_locale}/archer/{archer}
+   controller: App\Controller\ArcherController::show

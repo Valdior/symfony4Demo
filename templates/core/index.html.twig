@@ -4,6 +4,36 @@
 
 {% block body %}
 
-    <h1>Welcome to my world</h1>
+    <div class="page-header">
+        <h1>{{ 'title.homepage'|trans }}</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="jumbotron">
+                <p>
+                    {{ 'help.browse_app'|trans }}
+                </p>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="#">
+                        <i class="fa fa-users" aria-hidden="true"></i> 
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="jumbotron">
+                <p>
+                    
+                </p>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="#">
+                        <i class="fa fa-lock" aria-hidden="true"></i> 
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

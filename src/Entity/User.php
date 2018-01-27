@@ -123,6 +123,11 @@ class User implements AdvancedUserInterface, \Serializable
         // $this->salt = md5(uniqid('', true));
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Returns the salt that was originally used to encode the password.
      *

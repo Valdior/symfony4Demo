@@ -1,0 +1,7 @@
+core.index:
+   path: /{_locale}
+   controller: App\Controller\CoreController::index
+   requirements:
+      _locale: '%app_locales%'
+   defaults:
+      locale: '%locale%'

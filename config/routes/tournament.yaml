@@ -1,0 +1,5 @@
+tournament.index:
+   path: /{_locale}/Tournament
+   controller: App\Controller\TournamentController::index
+   requirements:
+      _locale: '%app_locales%'

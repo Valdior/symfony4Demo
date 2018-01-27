@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compétition !{% endblock %}
+
+{% block body %}
+
+    <h1>Listes des Compétitions</h1>
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+            <ul>
+            {% for tournament in tournaments %}
+                <li>Il existe au moins 1 compétition</li>
+            {% else %}
+                <li>Aucune compétition pour l'instant</li>
+            {% endfor %}
+            </ul>
+
+
+{% endblock %}

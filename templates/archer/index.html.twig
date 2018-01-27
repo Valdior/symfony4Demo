@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Archer !{% endblock %}
+
+{% block body %}
+
+    <h1>Listes des archers</h1>
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+            <ul>
+            {% for archer in archers %}
+                <li><a href="{{ path('archer.show', {'archer': archer.id}) }}">{{ archer.fullname }}</a></li>
+            {% endfor %}
+            </ul>
+
+
+{% endblock %}
