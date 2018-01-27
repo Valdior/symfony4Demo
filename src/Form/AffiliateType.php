@@ -10,7 +10,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AffiliateType extends AbstractType
 {
@@ -21,7 +22,7 @@ class AffiliateType extends AbstractType
                 'label' => 'Date affiliation',
                 'widget' => 'single_text',
             ))
-            ->add('registrationNumber', NumberType::class, array(
+            ->add('registrationNumber', TextType::class, array(
                 'label' => 'Numéro licence',
             ))
             ->add('archer', EntityType::class, array(
@@ -32,6 +33,7 @@ class AffiliateType extends AbstractType
                 // use the User.username property as the visible option string
                 'choice_label' => 'fullname',
             ))
+            ->add('save', SubmitType::class, array('label' => 'Ajouter l\'affiliation'))
         ;
     }
 

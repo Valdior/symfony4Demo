@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Affiliate;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -475,7 +476,7 @@ class User implements AdvancedUserInterface, \Serializable
      */ 
     public function addAffiliation(Affiliate $affiliation)
     {
-        $this->affiliations[] = $affiliations;
+        $this->affiliations[] = $affiliation;
 
         return $this;
     }
@@ -485,7 +486,7 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @return  self
      */ 
-    public function removeAffiliation(affiliations $affiliation)
+    public function removeAffiliation(Affiliate $affiliation)
     {
         $this->affiliations->removeElement($affiliation);
     }

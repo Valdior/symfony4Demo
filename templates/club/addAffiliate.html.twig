@@ -7,9 +7,29 @@
     <h1>Ajouter un archer</h1>
 
     {{ form_start(form, { 'attr': {'class': 'form form-horizontal'} }) }}            
+    <div class="form-group">
+        {{ form_label(form.affiliatedSince, "", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_errors(form.affiliatedSince) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.affiliatedSince, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.registrationNumber, "", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_errors(form.registrationNumber) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.registrationNumber, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.archer, "", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_errors(form.archer) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.archer, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
     {{ form_rest(form) }}
     {{ form_end(form) }}
-
-    <a href="{{ path("club.index") }}"><span class="btn btn-primary">Retourner à la liste</span></a>
-
 {% endblock %}

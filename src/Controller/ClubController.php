@@ -23,8 +23,6 @@ class ClubController extends Controller
 
     public function show(Club $club)
     {
-        //$clubs = $doctrine->getRepository(Club::class)->findBy([],['region' => 'ASC', 'number' => 'ASC']);
-
         return $this->render("club/show.html.twig", compact('club'));
     }
 
@@ -60,10 +58,11 @@ class ClubController extends Controller
         if ($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
+            $affiliate->setClub($club);
             $em->persist($affiliate);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('success', 'L\'affiliation de l\'archer a bien été enregistré.');
+            $request->getSession()->getFlashBag()->add('success', 'L\'affiliation de l\'archer "'. $affiliate->getArcher()->getFullName() .'" a bien été enregistré.');
 
             return $this->redirectToRoute('club.index');
         }
