@@ -3,3 +3,15 @@ tournament.index:
    controller: App\Controller\TournamentController::index
    requirements:
       _locale: '%app_locales%'
+
+tournament.add:
+   path: /{_locale}/Tournament/add
+   controller: App\Controller\TournamentController::add
+   requirements:
+      _locale: '%app_locales%'
+
+tournament.show:
+   path: /{_locale}/Tournament/{tournament}
+   controller: App\Controller\TournamentController::show
+   requirements:
+      _locale: '%app_locales%'      

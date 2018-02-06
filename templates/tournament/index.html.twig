@@ -17,11 +17,16 @@
 
             <ul>
             {% for tournament in tournaments %}
-                <li>Il existe au moins 1 compétition</li>
+                <li>            
+                    <a href="{{ path('tournament.show', {'tournament': tournament.id}) }}">
+                          
+                    Du {{ tournament.startDate|date('d/m/Y') }} au {{ tournament.endDate|date('d/m/Y') }}</a> 
+                </li>
             {% else %}
                 <li>Aucune compétition pour l'instant</li>
             {% endfor %}
             </ul>
 
+     <a href="{{ path("tournament.add") }}"><span class="btn btn-primary">Ajouter une compétition</span></a>
 
 {% endblock %}

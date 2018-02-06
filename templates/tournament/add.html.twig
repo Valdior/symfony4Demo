@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clubs !{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter une compétition</h1>
+
+    {{ include("tournament/form.html.twig") }}
+
+    <a href="{{ path("tournament.index") }}"><span class="btn btn-primary">Retourner à la liste</span></a>
+
+{% endblock %}

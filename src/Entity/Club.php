@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use ApiPlatform\Core\Annotation\ApiResource; 
+
 use App\Entity\Region;
 use App\Entity\Affiliate;
+use App\Entity\Tournament;
+use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource; 
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * An Club
@@ -50,9 +52,16 @@ class Club
      */
     private $members;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tournament", mappedBy="organizer")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $tournaments;
+
     public function __construct()
     {
         $this->members = new ArrayCollection();
+        $this->tournaments = new ArrayCollection();
     }
 
     /**
@@ -173,4 +182,34 @@ class Club
         $this->members->removeElement($member);
     }
 
+
+    /**
+     * @return Collection|Tournament[]
+     */ 
+    public function getTournaments()
+    {
+        return $this->tournaments;
+    }
+
+    /**
+     * Add the value of tournaments
+     *
+     * @return  self
+     */ 
+    public function addTournament(Tournament $tournament)
+    {
+        $this->tournaments[] = $tournament;
+
+        return $this;
+    }
+
+    /**
+     * Remove the value of tournaments
+     *
+     * @return  self
+     */ 
+    public function removeTournament(Tournament $tournament)
+    {
+        $this->tournaments->removeElement($tournament);
+    }
 }

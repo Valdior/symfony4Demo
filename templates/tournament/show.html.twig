@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tournament - {{ parent() }}{% endblock %}
+
+{% block body %}    
+    <h3>{{ tournament.startDate|date('d/m/Y') }}</h3>
+    
+    <h3>
+    Pelotons
+    {% if is_granted('ROLE_ADMIN') %}
+        {# <a class="btn btn-primary" href="{{ path('peloton_add', {'id': tournament.id}) }}">Ajouter un peloton</a> #}
+        <p>yeah admin :D</p>
+    {% endif %}
+    </h3>
+{% endblock %}
