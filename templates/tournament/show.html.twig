@@ -7,11 +7,19 @@
     
     <h3>
     Pelotons
+    <a href="{{ path("peloton.add", {"tournament" : tournament.id}) }}"><span class="btn btn-primary">Ajouter un peloton</span></a>
     {% if is_granted('ROLE_ADMIN') %}
-        {# <a class="btn btn-primary" href="{{ path('peloton_add', {'id': tournament.id}) }}">Ajouter un peloton</a> #}
         <p>yeah admin :D</p>
     {% endif %}
-    </h3>
+    </h3>    
+
+    {% for peloton in tournament.pelotons %}    
+    <ul>
+        <li>{{ peloton.id }}</li>
+    </ul>
+    {% else %}
+    <p>Pas encore de peloton disponible</p>
+    {% endfor %}
 
     <h3>
     Archés enregistrés

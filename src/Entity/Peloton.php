@@ -35,11 +35,10 @@ class Peloton
     private $maxParticipants;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\Type("integer")
+     * @ORM\Column(type="json")
      * @Assert\NotBlank()
      */
-    private $type;
+    private $types = [];
 
     /**
      * @ORM\Column(type="date")
@@ -47,7 +46,7 @@ class Peloton
     private $startTime;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="archer")
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="archer")
      */
     private $participants;
 
@@ -64,6 +63,7 @@ class Peloton
     {
         $this->startTime         = new \Datetime();
         $this->participants      = new ArrayCollection();
+        $this->type = 0;
     }
 
     public static function getTypeList()
@@ -100,27 +100,38 @@ class Peloton
     }
 
     /**
-     * Get the value of type
+     * Get the value of types
      */ 
-    public function getType()
+    public function getTypes()
     {
-        return self::getTypeList()[$this->type]; 
+        $types = $this->types;
+
+        return array_unique($types);
     }
 
     /**
-     * Set the value of type
-     *
-     * @return  self
+     * Add type
      */ 
-    public function setType($type)
+    public function addType(string $role): void
     {
         if (!in_array($type, self::getTypeList())) {
             throw new \InvalidArgumentException("Invalid type");
         }
 
-        $this->type = array_search($type, self::getTypeList());
+        $this->types[] = array_search($type, self::getTypeList());
+    }
 
-        return $this;
+    /**
+     * Remove type
+     */ 
+    public function removeType(string $type)
+    {
+        $this->types->removeElement($type);
+    }
+
+    public function setTypes(array $types): void
+    {
+        $this->types = $types;
     }
 
     /**

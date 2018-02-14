@@ -110,6 +110,11 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $affiliations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="archer")
+     */
+    private $competitions;
+
 
     public function __construct()
     {

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Peloton !{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter un peloton</h1>
+
+    {{ include("peloton/form.html.twig") }}
+
+    <a href="{{ path("tournament.show", {'tournament': tournament.id}) }}"><span class="btn btn-primary">Retourner à la compétition</span></a>
+
+{% endblock %}

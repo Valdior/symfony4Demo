@@ -3,21 +3,39 @@
 namespace App\Controller;
 
 use App\Entity\Peloton;
+use App\Form\PelotonType;
+use App\Entity\Tournament;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PelotonController extends Controller
 {
-    public function index(RegistryInterface $doctrine)
+    public function show(Tournament $tournament)
     {
-        $archers = $doctrine->getRepository(Peloton::class)->findBy(['isArcher' => true],['lastname' => 'ASC', 'firstname' => 'ASC']);
-
-        return $this->render("archer/index.html.twig", compact('archers'));
     }
 
-    public function show(Peloton $archer)
+    public function add(Tournament $tournament, Request $request)
     {
-        return $this->render("archer/show.html.twig", compact('archer'));
+        $peloton = new Peloton();
+        $form = $this->createForm(PelotonType::class, $peloton);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($peloton);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'Peloton "' . $peloton->getId() . '" bien enregistré.');
+
+            return $this->redirectToRoute('tournament.index');
+        }
+
+        return $this->render(
+            'peloton/add.html.twig',
+            array('form' => $form->createView(), 'tournament' => $tournament)
+        );
     }
 }

@@ -15,3 +15,15 @@ tournament.show:
    controller: App\Controller\TournamentController::show
    requirements:
       _locale: '%app_locales%'      
+
+peloton.add:
+   path: /{_locale}/Tournament/{tournament}/peloton/add
+   controller: App\Controller\PelotonController::add
+   requirements:
+      _locale: '%app_locales%'
+
+peloton.show:
+   path: /{_locale}/Tournament/{tournament}/peloton/{peloton}
+   controller: App\Controller\PelotonController::show
+   requirements:
+      _locale: '%app_locales%'  

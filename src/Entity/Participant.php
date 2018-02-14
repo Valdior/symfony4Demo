@@ -54,7 +54,13 @@ class Participant
     private $isForfeited;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Peloton", mappedBy="participants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Peloton", inversedBy="participants")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $participation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="competitions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $archer;
