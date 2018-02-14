@@ -15,11 +15,11 @@
     {% endfor %}
 {% endfor %}
 
-            <ul>
-            {% for club in clubs %}
-                <li><a href="{{ path("club.show", {'club': club.id}) }}">{{ club.number }} - {{ club.acronym }} - {{ club.name }}</a></li>
-            {% endfor %}
-            </ul>
+    <ul>
+    {% for club in clubs %}
+        <li><a href="{{ path("club.show", {'club': club.id}) }}">{{ club.number }} - {{ club.acronym }} - {{ club.name }}</a></li>
+    {% endfor %}
+    </ul>
 
     <a href="{{ path("club.add") }}"><span class="btn btn-primary">Ajouter un club</span></a>
 

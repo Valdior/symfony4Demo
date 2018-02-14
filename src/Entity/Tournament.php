@@ -46,6 +46,11 @@ class Tournament
     private $organizer;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Peloton", mappedBy="tournament")
+     */
+    private $pelotons;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -150,5 +155,35 @@ class Tournament
         $this->organizer = $organizer;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Peloton[]
+     */ 
+    public function getPelotons()
+    {
+        return $this->pelotons;
+    }
+
+    /**
+     * Set the value of pelotons
+     *
+     * @return  self
+     */ 
+    public function addPeloton(Peloton $peloton)
+    {
+        $this->pelotons[] = $peloton;
+
+        return $this;
+    }
+
+    /**
+     * Remove the value of pelotons
+     *
+     * @return  self
+     */ 
+    public function removePeloton(Peloton $peloton)
+    {
+        $this->pelotons->removeElement($peloton);
     }
 }

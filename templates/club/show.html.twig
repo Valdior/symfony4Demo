@@ -24,5 +24,13 @@
             <h3>Région</h3>
             <p>{{ club.region.name }}</p>
         </article>
+        <article>
+            <h3>Compétition</h3>
+            {% for tournament in club.tournaments %}
+                <p>{{ tournament.startDate|date('d/m/Y')  }}</p>
+            {% else %}
+                <p>Le club n'a orginasé aucune compétition jusqu'à maintenant</p>
+            {% endfor %}
+        </article>
     </section>
 {% endblock %}
