@@ -7,9 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class PelotonType extends AbstractType
@@ -17,12 +17,11 @@ class PelotonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('maxParticipants', NumberType::class)
-            ->add('types', CollectionType::class, array(
-                'entry_type'   => ChoiceType::class,
-                'entry_options'  => array(
-                    'choices'  => Peloton::getTypeList()
-                    )
+            ->add('maxParticipants', IntegerType::class)
+            ->add('types', ChoiceType::class, array(
+                'choices'  => Peloton::getTypeList(),
+                'multiple' => true,
+                'expanded' => true,
             ))
             ->add('startTime', TimeType::class)
             ->add('save',      SubmitType::class)
@@ -32,8 +31,13 @@ class PelotonType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // uncomment if you want to bind to a class
-            //'data_class' => Peloton::class,
+            'data_class' => Peloton::class,
+            'csrf_protection' => true,
+            // the name of the hidden HTML field that stores the token
+            'csrf_field_name' => '_token',
+            // an arbitrary string used to generate the value of the token
+            // using a different string for each form improves its security
+            'csrf_token_id'   => 'task_item',
         ]);
     }
 }

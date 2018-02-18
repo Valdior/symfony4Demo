@@ -8,7 +8,9 @@ easy_admin:
               children:
               - { entity: 'User', label: 'Utilisateur', icon: 'user' }
               - { entity: 'Club', label: 'Club', icon: 'tag' }
-              - { entity: 'Affiliate', label: 'Affiliation', icon: 'tag' }
+              - { entity: 'Affiliate', label: 'Affiliation', icon: 'tag' }              
+              - { entity: 'Tournament', label: 'Compétition', icon: 'tag' }
+              - { entity: 'Peloton', label: 'Peloton', icon: 'tag' }
     entities:
         # List the entity class name you want to manage
         Post:
@@ -25,4 +27,10 @@ easy_admin:
         Affiliate:
             label: 'Affiliation'
             class: App\Entity\Affiliate
+        Tournament:
+            label: 'Compétition'
+            class: App\Entity\Tournament
+        Peloton:
+            label: 'Peloton'
+            class: App\Entity\Peloton
         

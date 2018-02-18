@@ -41,7 +41,7 @@ class Peloton
     private $types = [];
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="time")
      */
     private $startTime;
 
@@ -112,7 +112,7 @@ class Peloton
     /**
      * Add type
      */ 
-    public function addType(string $role): void
+    public function addType(string $type): void
     {
         if (!in_array($type, self::getTypeList())) {
             throw new \InvalidArgumentException("Invalid type");

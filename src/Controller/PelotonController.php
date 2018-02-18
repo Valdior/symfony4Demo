@@ -25,6 +25,7 @@ class PelotonController extends Controller
         if ($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
+            $peloton->setTournament($tournament);
             $em->persist($peloton);
             $em->flush();
 
