@@ -1,7 +1,8 @@
 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
     {{ form_errors(form) }}
-
+    {{ form_widget(form) }}
+    {# 
      <div class="form-group">
         {{ form_label(form.maxParticipants, "Nombre maximum de participants", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
         {{ form_errors(form.maxParticipants) }}
@@ -28,6 +29,6 @@
     {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
 
     {{ form_rest(form) }}
-
+#}
     {# Fermeture de la balise <form> du formulaire HTML #}
 {{ form_end(form) }}
