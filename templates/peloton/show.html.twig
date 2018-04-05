@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Peloton !{% endblock %}
+
+{% block body %}
+
+    <h1>Participants <a href="#"><span class="btn btn-primary">Ajouter un participant</span></a></h1>
+    
+    <table>
+        <tr>
+            <th>FullName</th>
+            <th>Points</th>
+            <th>10</th>
+            <th>9</th>
+        </tr>
+        <tr>
+        {% for participant in peloton.participants %}    
+            <td>{{ participant.fullname }}</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+        {% else %}
+            <td>Aucun particpant pour l'instant</td>
+        {% endfor %}
+        </tr>
+    </table>
+
+
+{% endblock %}

@@ -68,7 +68,7 @@ class Peloton
 
     public static function getTypeList()
     {
-        return [self::TYPE_18, self::TYPE_25, self::TYPE_50_30, self::TYPE_50, self::TYPE_70, self::TYPE_1440];
+        return array(self::TYPE_18, self::TYPE_25, self::TYPE_50_30, self::TYPE_50, self::TYPE_70, self::TYPE_1440);
     }
 
     /**

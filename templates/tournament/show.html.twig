@@ -13,13 +13,14 @@
     {% endif %}
     </h3>    
 
-    {% for peloton in tournament.pelotons %}    
     <ul>
-        <li>{{ peloton.id }}</li>
-    </ul>
+    {% for peloton in tournament.pelotons %}    
+        <li><a href="{{ path('peloton.show', {'tournament': tournament.id, 'peloton': peloton.id}) }}">{{ peloton.id }}</a></li>
+    
     {% else %}
-    <p>Pas encore de peloton disponible</p>
+        <lip>Pas encore de peloton disponible</li>
     {% endfor %}
+    </ul>
 
     <h3>
     Archés enregistrés

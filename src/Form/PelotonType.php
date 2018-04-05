@@ -20,6 +20,12 @@ class PelotonType extends AbstractType
             ->add('maxParticipants', IntegerType::class)
             ->add('types', ChoiceType::class, array(
                 'choices'  => Peloton::getTypeList(),
+                'choice_label' => function ($value, $key, $index) {
+                    return $value;
+                },
+                'choice_value' => function ($value) {                   
+                    return dump($value);
+                },
                 'multiple' => true,
                 'expanded' => true,
             ))

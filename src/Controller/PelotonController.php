@@ -12,8 +12,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PelotonController extends Controller
 {
-    public function show(Tournament $tournament)
+    public function show(Peloton $peloton)
     {
+        return $this->render("peloton/show.html.twig", compact('peloton'));
     }
 
     public function add(Tournament $tournament, Request $request)
@@ -37,6 +38,30 @@ class PelotonController extends Controller
         return $this->render(
             'peloton/add.html.twig',
             array('form' => $form->createView(), 'tournament' => $tournament)
+        );
+    }
+
+    public function addParticipant(Peloton $peloton, Request $request)
+    {
+        $participant = new Participant();
+        $form = $this->createForm(ParticipantType::class, $participant);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $peloton->setPeloton($peloton);
+            $em->persist($participant);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'Le nouveau participant a bien été enregistré.');
+
+            return $this->redirectToRoute('tournament.index');
+        }
+
+        return $this->render(
+            'peloton/add.html.twig',
+            array('form' => $form->createView(), 'peloton' => $peloton)
         );
     }
 }
