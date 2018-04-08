@@ -5,14 +5,16 @@ namespace App\Controller;
 use App\Entity\Peloton;
 use App\Form\PelotonType;
 use App\Entity\Tournament;
+use App\Entity\Participant;
+use App\Form\ParticipantType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PelotonController extends Controller
 {
-    public function show(Peloton $peloton)
+    public function show(Peloton $peloton, RegistryInterface $doctrine)
     {
         return $this->render("peloton/show.html.twig", compact('peloton'));
     }
@@ -50,7 +52,7 @@ class PelotonController extends Controller
         if ($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
-            $peloton->setPeloton($peloton);
+            $participant->setPeloton($peloton);
             $em->persist($participant);
             $em->flush();
 
@@ -60,7 +62,7 @@ class PelotonController extends Controller
         }
 
         return $this->render(
-            'peloton/add.html.twig',
+            'participant/add.html.twig',
             array('form' => $form->createView(), 'peloton' => $peloton)
         );
     }

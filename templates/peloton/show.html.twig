@@ -3,27 +3,26 @@
 {% block title %}Peloton !{% endblock %}
 
 {% block body %}
-
-    <h1>Participants <a href="#"><span class="btn btn-primary">Ajouter un participant</span></a></h1>
+    <h1>Participants <a href="{{ path('participant.add', {'tournament': peloton.tournament.id, 'peloton': peloton.id}) }}"><span class="btn btn-primary">Ajouter un participant</span></a></h1>
     
-    <table>
+    Nombre de particpants : {{ peloton.participants | length }}
+
+    <table class="table table-striped">
         <tr>
             <th>FullName</th>
             <th>Points</th>
+            <th>X</th>
             <th>10</th>
-            <th>9</th>
         </tr>
         <tr>
         {% for participant in peloton.participants %}    
-            <td>{{ participant.fullname }}</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
+            <td>{{ participant.archer.fullname }}</td>
+            <td>{{ participant.points }}</td>
+            <td>{{ participant.numberofx }}</td>
+            <td>{{ participant.numberoften }}</td>
         {% else %}
-            <td>Aucun particpant pour l'instant</td>
+            <td>Aucun participant pour l'instant</td>
         {% endfor %}
         </tr>
     </table>
-
-
 {% endblock %}

@@ -46,7 +46,7 @@ class Peloton
     private $startTime;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="archer")
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="peloton")
      */
     private $participants;
 

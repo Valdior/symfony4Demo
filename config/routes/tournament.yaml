@@ -27,3 +27,9 @@ peloton.show:
    controller: App\Controller\PelotonController::show
    requirements:
       _locale: '%app_locales%'  
+
+participant.add:
+   path: /{_locale}/Tournament/{tournament}/peloton/{peloton}/add
+   controller: App\Controller\PelotonController::addParticipant
+   requirements:
+      _locale: '%app_locales%'        
