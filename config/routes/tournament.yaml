@@ -1,35 +1,44 @@
 tournament.index:
-   path: /{_locale}/Tournament
+   path: /{_locale}/tournaments
    controller: App\Controller\TournamentController::index
    requirements:
       _locale: '%app_locales%'
 
 tournament.add:
-   path: /{_locale}/Tournament/add
+   path: /{_locale}/tournament/add
    controller: App\Controller\TournamentController::add
    requirements:
       _locale: '%app_locales%'
 
 tournament.show:
-   path: /{_locale}/Tournament/{tournament}
+   path: /{_locale}/tournament/{tournament}
    controller: App\Controller\TournamentController::show
    requirements:
       _locale: '%app_locales%'      
 
 peloton.add:
-   path: /{_locale}/Tournament/{tournament}/peloton/add
+   path: /{_locale}/tournament/{tournament}/peloton/add
    controller: App\Controller\PelotonController::add
    requirements:
       _locale: '%app_locales%'
 
 peloton.show:
-   path: /{_locale}/Tournament/{tournament}/peloton/{peloton}
+   path: /{_locale}/tournament/{tournament}/peloton/{peloton}
    controller: App\Controller\PelotonController::show
+   methods : GET
    requirements:
       _locale: '%app_locales%'  
 
 participant.add:
-   path: /{_locale}/Tournament/{tournament}/peloton/{peloton}/add
+   path: /{_locale}/tournament/{tournament}/peloton/{peloton}/add
    controller: App\Controller\PelotonController::addParticipant
+   methods : [GET, POST]
    requirements:
-      _locale: '%app_locales%'        
+      _locale: '%app_locales%'     
+      
+# participant.delete:
+#    path: /{_locale}/tournament/{tournament}/peloton/{peloton}/participant/{participant}
+#    controller: App\Controller\PelotonController::addParticipant
+#    methods : DELETE
+#    requirements:
+#       _locale: '%app_locales%'         

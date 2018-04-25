@@ -22,6 +22,24 @@ class UserRepository extends ServiceEntityRepository
         return $qb;
     }
 
+    public function ListAllArcherNotRegistred($pelotonId)
+    {
+        $subQueryBuilder = $this->createQueryBuilder('c');
+        $subQuery = $subQueryBuilder
+            ->select('c.id')
+            ->leftJoin('c.competitions', 'part')
+            ->where('part.peloton = :id_peloton')                     
+            ;
+
+        $query = $this->createQueryBuilder('c3');
+        $query->where($query->expr()->notIn('c3.id', $subQuery->getDQL()))
+                ->andWhere('c3.isArcher = :isArcher')
+                    ->setParameter('isArcher', true) 
+                ->setParameter('id_peloton', $pelotonId);      
+
+        return $query;   
+    }
+
     /*
     public function findBySomething($value)
     {

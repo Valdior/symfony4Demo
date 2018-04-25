@@ -167,11 +167,9 @@ class Peloton
      *
      * @return  self
      */ 
-    public function addParticipant(Participant $participant)
+    public function addParticipant(Participant $participant): void
     {
         $this->participants[] = $participant;
-
-        return $this;
     }
 
      /**
@@ -179,7 +177,7 @@ class Peloton
      *
      * @return  self
      */ 
-    public function removeParticipant(Participant $participant)
+    public function removeParticipant(Participant $participant): void
     {
         $this->participants->removeElement($participant);
     }

@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Participant;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -13,17 +15,16 @@ class ParticipantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $entity = $builder->getData();
+        $pattern = $entity->getPeloton()->getId();
+
         $builder
             ->add('archer', EntityType::class, array(
-                // looks for choices from this entity
-                'class' => User::class,
-            
-                // uses the User.username property as the visible option string
-                'choice_label' => 'username',
-            
-                // used to render a select box, check boxes or radios
-                // 'multiple' => true,
-                // 'expanded' => true,
+                'class' => User::class,                
+                'choice_label' => 'fullname',
+                'query_builder' => function(UserRepository $repository)  use($pattern) {
+                    return $repository->ListAllArcherNotRegistred($pattern);
+                },
             ))
             ->add('save',      SubmitType::class)
             ;
@@ -32,7 +33,7 @@ class ParticipantType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Participant::class,
         ]);
     }
 }
