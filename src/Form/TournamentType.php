@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Club;
 use App\Entity\Tournament;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,6 +21,13 @@ class TournamentType extends AbstractType
             ->add('endDate',        DateType::class)
             ->add('type',           ChoiceType::class, array(
                 'choices'  => Tournament::getTypeList(),
+                'choice_label' => function ($value, $key, $index) {
+                    return $value;
+                },
+            ))
+            ->add('organizer', EntityType::class, array(
+                'class' => Club::class,
+                'choice_label' => 'name',
             ))
             ->add('save',      SubmitType::class)
         ;

@@ -34,7 +34,7 @@ class PelotonController extends Controller
 
             $request->getSession()->getFlashBag()->add('success', 'Peloton "' . $peloton->getId() . '" bien enregistré.');
 
-            return $this->redirectToRoute('tournament.show', array('id' => $tournament->getId()));
+            return $this->redirectToRoute('tournament.show', array('tournament' => $tournament->getId()));
         }
 
         return $this->render(

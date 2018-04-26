@@ -15,17 +15,20 @@
     {% endfor %}
 {% endfor %}
 
-            <ul>
-            {% for tournament in tournaments %}
-                <li>            
-                    <a href="{{ path('tournament.show', {'tournament': tournament.id}) }}">
-                          
-                    Du {{ tournament.startDate|date('d/m/Y') }} au {{ tournament.endDate|date('d/m/Y') }}</a> 
-                </li>
-            {% else %}
-                <li>Aucune compétition pour l'instant</li>
-            {% endfor %}
-            </ul>
+    <table class="table">
+        <tr>
+            <th>Organisateur</th>
+            <th>Date</th>
+        </tr>
+        {% for tournament in tournaments %}
+        <tr>        
+            <td>{{ tournament.organizer.name }}</td>
+            <td><a href="{{ path('tournament.show', {'tournament': tournament.id}) }}">{{ tournament.startDate|date('d/m/Y') }} au {{ tournament.endDate|date('d/m/Y') }}</a> </td>        
+        </tr>
+        {% else %}
+            <p>Aucune compétition pour l'instant</p>
+        {% endfor %}
+    </table>
 
      <a href="{{ path("tournament.add") }}"><span class="btn btn-primary">Ajouter une compétition</span></a>
 

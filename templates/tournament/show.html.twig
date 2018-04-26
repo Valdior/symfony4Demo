@@ -15,28 +15,48 @@
 
     <ul>
     {% for peloton in tournament.pelotons %}    
-        <li><a href="{{ path('peloton.show', {'tournament': tournament.id, 'peloton': peloton.id}) }}">{{ peloton.id }}</a></li>
-    
+        <li>#{{ loop.index }} <a href="{{ path('peloton.show', {'tournament': tournament.id, 'peloton': peloton.id}) }}">Peloton de {{ peloton.starttime | date("H:m") }}</a> {{ peloton.type }}</li>    
     {% else %}
         <lip>Pas encore de peloton disponible</li>
     {% endfor %}
     </ul>
 
-    <h3>
-    Archés enregistrés
-    </h3>
-    <table>
-        <tr>
-            <th>FullName</th>
-            <th>Points</th>
-            <th>10</th>
-            <th>9</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-        </tr>
+    <h3>Archés enregistrés</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>FullName</th>
+                <th>Points</th>
+                <th>10</th>
+                <th>9</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>FullName</th>
+                <th>Points</th>
+                <th>10</th>
+                <th>9</th>
+            </tr>
+        </tfoot>
+        {% for i in 0..5 %}
+        <tbody>
+            <tr>
+                <th colspan="4">Catégorie {{ loop.index }}</th>
+            </tr>
+            {% for i in 0..5 %}
+            <tr>
+                <td>#{{ loop.index }}</td>
+                <td>Moi</td>
+                <td>146</td>
+                <td>11</td>
+                <td>4</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% endfor %}
     </table>
 {% endblock %}

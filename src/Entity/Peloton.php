@@ -35,10 +35,10 @@ class Peloton
     private $maxParticipants;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
-    private $types = [];
+    private $type;
 
     /**
      * @ORM\Column(type="time")
@@ -61,9 +61,9 @@ class Peloton
      */
     public function __construct()
     {
-        $this->startTime         = new \Datetime();
-        $this->participants      = new ArrayCollection();
-        $this->type = 0;
+        $this->startTime        = new \Datetime();
+        $this->participants     = new ArrayCollection();
+        $this->type             = 0;
     }
 
     public static function getTypeList()
@@ -100,38 +100,23 @@ class Peloton
     }
 
     /**
-     * Get the value of types
+     * Get the value of type
      */ 
-    public function getTypes()
+    public function getType()
     {
-        $types = $this->types;
-
-        return array_unique($types);
+        return self::getTypeList()[$this->type];
     }
 
     /**
-     * Add type
+     * Set type
      */ 
-    public function addType(string $type): void
+    public function setType(string $type): void
     {
         if (!in_array($type, self::getTypeList())) {
             throw new \InvalidArgumentException("Invalid type");
         }
 
-        $this->types[] = array_search($type, self::getTypeList());
-    }
-
-    /**
-     * Remove type
-     */ 
-    public function removeType(string $type)
-    {
-        $this->types->removeElement($type);
-    }
-
-    public function setTypes(array $types): void
-    {
-        $this->types = $types;
+        $this->type = array_search($type, self::getTypeList());
     }
 
     /**

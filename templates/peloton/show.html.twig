@@ -21,8 +21,10 @@
             <td>{{ participant.numberofx }}</td>
             <td>{{ participant.numberoften }}</td>
         {% else %}
-            <td>Aucun participant pour l'instant</td>
+            <td colspan="4">Aucun participant pour l'instant</td>
         {% endfor %}
         </tr>
     </table>
+
+    <a href="{{ path('tournament.show', {'tournament': peloton.tournament.id}) }}"><span class="btn btn-primary">Retour à la compétition</span></a>
 {% endblock %}

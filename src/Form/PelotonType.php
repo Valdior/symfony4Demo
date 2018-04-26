@@ -18,16 +18,11 @@ class PelotonType extends AbstractType
     {
         $builder
             ->add('maxParticipants', IntegerType::class)
-            ->add('types', ChoiceType::class, array(
+            ->add('type', ChoiceType::class, array(
                 'choices'  => Peloton::getTypeList(),
                 'choice_label' => function ($value, $key, $index) {
                     return $value;
-                },
-                'choice_value' => function ($value) {                   
-                    return dump($value);
-                },
-                'multiple' => true,
-                'expanded' => true,
+                }
             ))
             ->add('startTime', TimeType::class)
             ->add('save',      SubmitType::class)
