@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ParticipantType extends AbstractType
@@ -25,6 +26,18 @@ class ParticipantType extends AbstractType
                 'query_builder' => function(UserRepository $repository)  use($pattern) {
                     return $repository->ListAllArcherNotRegistred($pattern);
                 },
+            ))
+            ->add('arc', ChoiceType::class, array(
+                'choices'  => Participant::getArcList(),
+                'choice_label' => function ($value, $key, $index) {
+                    return $value;
+                }
+            ))
+            ->add('category', ChoiceType::class, array(
+                'choices'  => Participant::getCategoryList(),
+                'choice_label' => function ($value, $key, $index) {
+                    return $value;
+                }
             ))
             ->add('save',      SubmitType::class)
             ;

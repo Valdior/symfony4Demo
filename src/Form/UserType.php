@@ -9,10 +9,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserType extends AbstractType
 {
@@ -29,6 +30,12 @@ class UserType extends AbstractType
             ->add('isArcher', CheckboxType::class, array(
                 'label'    => 'Je suis un archer',
                 'required' => false,
+            ))
+            ->add('sexe',     ChoiceType::class, array(
+                'choices'  => User::getSexeList(),
+                'choice_label' => function ($value, $key, $index) {
+                    return $value;
+                },
             ))
             ->add('save', SubmitType::class, array('label' => 'S\'enregistrer'))
         ;

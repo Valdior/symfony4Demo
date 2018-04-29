@@ -3,9 +3,18 @@
 {% block title %}Peloton !{% endblock %}
 
 {% block body %}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
     <h1>Participants <a href="{{ path('participant.add', {'tournament': peloton.tournament.id, 'peloton': peloton.id}) }}"><span class="btn btn-primary">Ajouter un participant</span></a></h1>
     
-    Nombre de particpants : {{ peloton.participants | length }}
+    <p>Nombre de particpants : <i class="badge">{{ peloton.participants | length }} / {{ peloton.maxparticipants }}</i></p>
 
     <table class="table table-striped">
         <tr>

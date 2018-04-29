@@ -24,6 +24,9 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  */
 class User implements AdvancedUserInterface, \Serializable
 {
+    const SEXE_M = "Homme";
+    const SEXE_W = "Femme";
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -115,6 +118,11 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $competitions;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $sexe;
+
 
     public function __construct()
     {
@@ -124,8 +132,14 @@ class User implements AdvancedUserInterface, \Serializable
         $this->isLocked = false;
         $this->isCredentialsExpired = false;
         $this->affiliations = new ArrayCollection();
+        $this->sexe = 0;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
+    }
+
+    public static function getSexeList(): array
+    {
+        return array(self::SEXE_M, self::SEXE_W);
     }
 
     public function getId()
@@ -524,5 +538,29 @@ class User implements AdvancedUserInterface, \Serializable
     public function getFullName()
     {
         return $this->firstname . ' ' . $this->lastname;
+    }
+
+    /**
+     * Get the value of sexe
+     */ 
+    public function getSexe()
+    {
+        return self::getSexeList()[$this->sexe];
+    }
+
+    /**
+     * Set the value of sexe
+     *
+     * @return  self
+     */ 
+    public function setSexe($sexe)
+    {
+        if (!in_array($sexe, self::getSexeList())) {
+            throw new \InvalidArgumentException("Invalid type");
+        }
+
+        $this->sexe = array_search($sexe, self::getSexeList());
+
+        return $this;
     }
 }
