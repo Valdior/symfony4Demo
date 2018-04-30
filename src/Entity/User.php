@@ -24,8 +24,8 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  */
 class User implements AdvancedUserInterface, \Serializable
 {
-    const SEXE_M = "Homme";
-    const SEXE_W = "Femme";
+    public const SEXE_M = "Homme";
+    public const SEXE_W = "Femme";
 
     /**
      * @ORM\Id

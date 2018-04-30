@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use App\Entity\User;
 use App\Entity\Peloton;
+use App\Entity\ArcherCategory;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use ApiPlatform\Core\Annotation\ApiResource; 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -13,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource()
  * 
  * @ORM\Entity(repositoryClass="App\Repository\ParticipantRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Participant
 {
@@ -20,8 +23,8 @@ class Participant
     const CAT_Benjamin  = 'Benjamin';
     const CAT_Cadet     = 'Cadet';
     const CAT_Junior    = 'Junior';
-    const CAT_Adulte1   = 'Adulte 1';
-    const CAT_Adulte2   = 'Adulte 2';
+    const CAT_Adulte1   = 'Senior 1';
+    const CAT_Adulte2   = 'Senior 2';
     const CAT_Master    = 'Master';
     const CAT_Veterant  = 'Veterant';
 
@@ -37,8 +40,8 @@ class Participant
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\Type("integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ArcherCategory", inversedBy="participantsCategory")
+     * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank()
      */
     private $category;
@@ -96,6 +99,30 @@ class Participant
     private $archer;
 
     /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated;
+
+    /**
+     * @var \DateTime $contentChanged
+     *
+     * @ORM\Column(name="content_changed", type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="change", field={"category", "arc", "points", "isForfeited"})
+     */
+    private $contentChanged;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -105,7 +132,6 @@ class Participant
         $this->setNumberOfTen(0);
         $this->setNumberOfNine(0);
         $this->setIsForfeited(false);
-        $this->category = 0;
         $this->arc = 0;
     }
 
@@ -210,7 +236,7 @@ class Participant
      */ 
     public function getCategory()
     {
-        return self::getCategoryList()[$this->category];
+        return $this->category; //self::getCategoryList()[$this->category];
     }
 
     /**
@@ -218,16 +244,9 @@ class Participant
      *
      * @return  self
      */ 
-    public function setCategory($category)
+    public function setCategory(ArcherCategory $category)
     {
-
-        if (!in_array($category, self::getCategoryList())) {
-            throw new \InvalidArgumentException("Invalid type");
-        }
-
-        $this->category = array_search($category, self::getCategoryList());
-
-        return $this;
+        $this->category = $category;
     }
 
     /**
@@ -252,5 +271,43 @@ class Participant
         $this->arc = array_search($arc, self::getArcList());
 
         return $this;
+    }
+
+    /**
+     * Get $created
+     *
+     * @return  \DateTime
+     */ 
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Get $updated
+     *
+     * @return  \DateTime
+     */ 
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Get $contentChanged
+     *
+     * @return  \DateTime
+     */ 
+    public function getContentChanged()
+    {
+        return $this->contentChanged;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function createdDate()
+    {
+        $this->created = new \Datetime();
     }
 }

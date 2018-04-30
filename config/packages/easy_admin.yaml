@@ -8,6 +8,7 @@ easy_admin:
               children:
               - { entity: 'User', label: 'Utilisateur', icon: 'user' }
               - { entity: 'Club', label: 'Club', icon: 'tag' }
+              - { entity: 'ArcherCategory', label: 'ArcherCategory', icon: 'user' }
               - { entity: 'Affiliate', label: 'Affiliation', icon: 'tag' }              
               - { entity: 'Tournament', label: 'Compétition', icon: 'tag' }
               - { entity: 'Peloton', label: 'Peloton', icon: 'tag' }
@@ -24,6 +25,9 @@ easy_admin:
         Club:
             label: 'Club'
             class: App\Entity\Club
+        ArcherCategory:
+            label: 'ArcherCategory'
+            class: App\Entity\ArcherCategory
         Affiliate:
             label: 'Affiliation'
             class: App\Entity\Affiliate
