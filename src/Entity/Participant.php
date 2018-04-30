@@ -51,13 +51,6 @@ class Participant
      * @Assert\Type("integer")
      * @Assert\NotBlank()
      */
-    private $arc;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Type("integer")
-     * @Assert\NotBlank()
-     */
     private $points;
 
     /**
@@ -132,17 +125,6 @@ class Participant
         $this->setNumberOfTen(0);
         $this->setNumberOfNine(0);
         $this->setIsForfeited(false);
-        $this->arc = 0;
-    }
-
-    public static function getCategoryList()
-    {
-        return array(self::CAT_Pupille, self::CAT_Benjamin, self::CAT_Cadet, self::CAT_Junior, self::CAT_Adulte1, self::CAT_Adulte2, self::CAT_Master, self::CAT_Veterant);
-    }
-
-    public static function getArcList()
-    {
-        return array(self::ARC_LONGBOW, self::ARC_RECURVE, self::ARC_COMPOUND);
     }
 
     /**
@@ -247,30 +229,6 @@ class Participant
     public function setCategory(ArcherCategory $category)
     {
         $this->category = $category;
-    }
-
-    /**
-     * Get the value of arc
-     */ 
-    public function getArc()
-    {
-        return self::getArcList()[$this->arc];
-    }
-
-    /**
-     * Set the value of arc
-     *
-     * @return  self
-     */ 
-    public function setArc($arc)
-    {
-        if (!in_array($arc, self::getArcList())) {
-            throw new \InvalidArgumentException("Invalid type");
-        }
-
-        $this->arc = array_search($arc, self::getArcList());
-
-        return $this;
     }
 
     /**
