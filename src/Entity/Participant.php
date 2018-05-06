@@ -42,7 +42,6 @@ class Participant
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ArcherCategory", inversedBy="participantsCategory")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank()
      */
     private $category;
 

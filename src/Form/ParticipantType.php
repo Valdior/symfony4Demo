@@ -30,7 +30,6 @@ class ParticipantType extends AbstractType
             ))
             ->add('category', EntityType::class, array(
                 'class' => ArcherCategory::class,  
-                'mapped'    => false,
                 'placeholder'   => "Sélectionnez votre catégorie"
             ))
             ->add('save',      SubmitType::class)
