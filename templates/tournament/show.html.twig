@@ -42,18 +42,18 @@
                 <th>9</th>
             </tr>
         </tfoot>
-        {% for i in 0..5 %}
+        {% for categorie in categories %}
         <tbody>
             <tr>
-                <th colspan="4">Catégorie {{ loop.index }}</th>
+                <th colspan="5">Catégorie {{ categorie.name }}</th>
             </tr>
-            {% for i in 0..5 %}
+            {% for participant in categorie.participantsCategory %}
             <tr>
-                <td>#{{ loop.index }}</td>
-                <td>Moi</td>
-                <td>146</td>
-                <td>11</td>
-                <td>4</td>
+                <td>#{{ loop.index }}</td>                
+                <td>{{ participant.archer.fullname }}</td>
+                <td>{{ participant.points }}</td>
+                <td>{{ participant.NumberOfTen }}</td>
+                <td>{{ participant.NumberOfNine }}</td>
             </tr>
             {% endfor %}
         </tbody>

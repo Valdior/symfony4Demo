@@ -19,22 +19,20 @@ class ArcherCategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, ArcherCategory::class);
     }
 
-//    /**
-//     * @return ArcherCategory[] Returns an array of ArcherCategory objects
-//     */
-    /*
-    public function findByExampleField($value)
+   /**
+    * @return ArcherCategory[] Returns an array of ArcherCategory objects
+    */
+    public function findByTournament(int $idTournament)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+            ->innerJoin('a.participantsCategory', 'par')
+            ->innerJoin('par.peloton', 'p')            
+            ->innerJoin('p.tournament', 't')
+            ->where('t.id = :value')->setParameter('value', $idTournament)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?ArcherCategory

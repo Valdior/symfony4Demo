@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Tournament;
 use App\Form\TournamentType;
+use App\Entity\ArcherCategory;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -42,8 +43,9 @@ class TournamentController extends Controller
         );
     }
 
-    public function show(Tournament $tournament)
+    public function show(RegistryInterface $doctrine, Tournament $tournament)
     {
-        return $this->render("tournament/show.html.twig", compact('tournament'));
+        $categories = $doctrine->getRepository(ArcherCategory::class)->findByTournament($tournament->getId());
+        return $this->render("tournament/show.html.twig", array('tournament' => $tournament, 'categories' => $categories));
     }
 }

@@ -19,19 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Participant
 {
-    const CAT_Pupille   = 'Pupille';
-    const CAT_Benjamin  = 'Benjamin';
-    const CAT_Cadet     = 'Cadet';
-    const CAT_Junior    = 'Junior';
-    const CAT_Adulte1   = 'Senior 1';
-    const CAT_Adulte2   = 'Senior 2';
-    const CAT_Master    = 'Master';
-    const CAT_Veterant  = 'Veterant';
-
-    const ARC_RECURVE   = "Recurve";
-    const ARC_COMPOUND  = "Compound";
-    const ARC_LONGBOW   = "Longbow";
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
