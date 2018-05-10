@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiResource; 
@@ -96,5 +97,28 @@ class Region
     public function getClubs()
     {
         return $this->clubs;
+    }
+
+    public function addClub(Club $club): self
+    {
+        if (!$this->clubs->contains($club)) {
+            $this->clubs[] = $club;
+            $club->setRegion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClub(Club $club): self
+    {
+        if ($this->clubs->contains($club)) {
+            $this->clubs->removeElement($club);
+            // set the owning side to null (unless already changed)
+            if ($club->getRegion() === $this) {
+                $club->setRegion(null);
+            }
+        }
+
+        return $this;
     }
 }

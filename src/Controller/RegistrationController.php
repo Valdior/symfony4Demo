@@ -32,7 +32,7 @@ class RegistrationController extends Controller
 
             // Si l'utilisateur se dit Archer, je lui donne directement le ROLE
             // TODO: Mettre une event sur le champs isArcher pour modifier automatiquement le ROLE
-            if(!$user->isNonArcher())
+            if(!$user->isNoArcher())
             {
                 $user->addRole("ROLE_ARCHER");
             }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Club;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiResource; 
@@ -62,6 +63,7 @@ class Tournament
         $this->startDate    = new \Datetime();
         $this->endDate      = new \Datetime();
         $this->type = 0;
+        $this->pelotons = new ArrayCollection();
     }
 
     public static function getTypeList()

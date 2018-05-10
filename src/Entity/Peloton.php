@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Tournament;
 use App\Entity\Participant;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,6 +45,16 @@ class Peloton
      * @ORM\Column(type="time")
      */
     private $startTime;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $startDate;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $endDate;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="peloton")
@@ -183,6 +194,30 @@ class Peloton
     public function setTournament(Tournament $tournament)
     {
         $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(\DateTimeInterface $startDate): self
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(?\DateTimeInterface $endDate): self
+    {
+        $this->endDate = $endDate;
 
         return $this;
     }

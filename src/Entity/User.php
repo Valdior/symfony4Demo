@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Affiliate;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -133,6 +134,7 @@ class User implements AdvancedUserInterface, \Serializable
         $this->isCredentialsExpired = false;
         $this->affiliations = new ArrayCollection();
         $this->sexe = 0;
+        $this->competitions = new ArrayCollection();
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }
@@ -420,7 +422,7 @@ class User implements AdvancedUserInterface, \Serializable
         return !$this->isCredentialsExpired;
     }
 
-    public function isNonArcher()
+    public function isNoArcher()
     {
         return !$this->isArcher;
     }
@@ -560,6 +562,37 @@ class User implements AdvancedUserInterface, \Serializable
         }
 
         $this->sexe = array_search($sexe, self::getSexeList());
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Participant[]
+     */
+    public function getCompetitions(): Collection
+    {
+        return $this->competitions;
+    }
+
+    public function addCompetition(Participant $competition): self
+    {
+        if (!$this->competitions->contains($competition)) {
+            $this->competitions[] = $competition;
+            $competition->setArcher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetition(Participant $competition): self
+    {
+        if ($this->competitions->contains($competition)) {
+            $this->competitions->removeElement($competition);
+            // set the owning side to null (unless already changed)
+            if ($competition->getArcher() === $this) {
+                $competition->setArcher(null);
+            }
+        }
 
         return $this;
     }

@@ -16,5 +16,10 @@ class Location
      */
     private $id;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     // add your own fields
 }

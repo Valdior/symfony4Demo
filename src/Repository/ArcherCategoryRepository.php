@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method ArcherCategory|null findOneBy(array $criteria, array $orderBy = null)
  * @method ArcherCategory[]    findAll()
  * @method ArcherCategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ArcherCategory[]    findByTournament(int $idTournament)
  */
 class ArcherCategoryRepository extends ServiceEntityRepository
 {
@@ -26,8 +27,11 @@ class ArcherCategoryRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->innerJoin('a.participantsCategory', 'par')
-            ->innerJoin('par.peloton', 'p')            
+                ->addSelect('par')
+            ->innerJoin('par.peloton', 'p')  
+                ->addSelect('p')          
             ->innerJoin('p.tournament', 't')
+                ->addSelect('t')
             ->where('t.id = :value')->setParameter('value', $idTournament)
             ->getQuery()
             ->getResult()

@@ -6,6 +6,7 @@ namespace App\Entity;
 use App\Entity\Region;
 use App\Entity\Affiliate;
 use App\Entity\Tournament;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource; 
 use Doctrine\Common\Collections\ArrayCollection;

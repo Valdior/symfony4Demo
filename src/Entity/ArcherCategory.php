@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,7 +36,12 @@ class ArcherCategory
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="category")
      */
-    private $participantsCategory;  
+    private $participantsCategory;
+
+    public function __construct()
+    {
+        $this->participantsCategory = new ArrayCollection();
+    }  
 
     public function getId()
     {
@@ -124,5 +131,28 @@ class ArcherCategory
     public function __toString()
     {
         return $this->getName();
+    }
+
+    public function addParticipantsCategory(Participant $participantsCategory): self
+    {
+        if (!$this->participantsCategory->contains($participantsCategory)) {
+            $this->participantsCategory[] = $participantsCategory;
+            $participantsCategory->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipantsCategory(Participant $participantsCategory): self
+    {
+        if ($this->participantsCategory->contains($participantsCategory)) {
+            $this->participantsCategory->removeElement($participantsCategory);
+            // set the owning side to null (unless already changed)
+            if ($participantsCategory->getCategory() === $this) {
+                $participantsCategory->setCategory(null);
+            }
+        }
+
+        return $this;
     }
 }
