@@ -6,9 +6,10 @@ use App\Entity\Peloton;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
@@ -24,8 +25,10 @@ class PelotonType extends AbstractType
                     return $value;
                 }
             ))
-            ->add('startTime', TimeType::class)
-            ->add('save',      SubmitType::class)
+            ->add('startDate',  DateType::class)
+            ->add('endDate',    DateType::class)
+            ->add('startTime',  TimeType::class)
+            ->add('save',       SubmitType::class)
         ;
     }
 
