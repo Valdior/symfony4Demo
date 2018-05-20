@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Participant !{% endblock %}
+
+{% block body %}
+
+    <h1>Modifier participant {{ participant.archer.fullname }}</h1>
+
+    {{ include("participant/form.html.twig") }}
+
+    <a href="{{ path("peloton.show", {'tournament': peloton.tournament.id, 'peloton': peloton.id}) }}"><span class="btn btn-primary">Retourner au peloton</span></a>
+
+{% endblock %}

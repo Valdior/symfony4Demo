@@ -195,6 +195,11 @@ class Peloton
     {
         $this->tournament = $tournament;
 
+        if($this->getStartDate() != null)
+        {
+            $this->setStartDate($this->tournament->getStartDate());
+        }
+
         return $this;
     }
 

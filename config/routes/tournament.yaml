@@ -35,6 +35,13 @@ participant.add:
    methods : [GET, POST]
    requirements:
       _locale: '%app_locales%'     
+
+participant.edit:
+   path: /{_locale}/tournament/{tournament}/peloton/{peloton}/edit/{participant}
+   controller: App\Controller\PelotonController::editParticipant
+   methods : [GET, POST]
+   requirements:
+      _locale: '%app_locales%'        
       
 # participant.delete:
 #    path: /{_locale}/tournament/{tournament}/peloton/{peloton}/participant/{participant}

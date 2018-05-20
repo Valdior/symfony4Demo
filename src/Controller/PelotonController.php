@@ -7,6 +7,7 @@ use App\Form\PelotonType;
 use App\Entity\Tournament;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
+use App\Form\ParticipantEditType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,13 +23,15 @@ class PelotonController extends Controller
     public function add(Tournament $tournament, Request $request)
     {
         $peloton = new Peloton();
-        $form = $this->createForm(PelotonType::class, $peloton);
+        $peloton->setTournament($tournament);
+        
+        $form = $this->createForm(PelotonType::class, $peloton);        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
-            $peloton->setTournament($tournament);
+            
             $em->persist($peloton);
             $em->flush();
 
@@ -64,6 +67,27 @@ class PelotonController extends Controller
         return $this->render(
             'participant/add.html.twig',
             array('form' => $form->createView(), 'peloton' => $peloton)
+        );
+    }
+
+    public function editParticipant(Peloton $peloton, Participant $participant, Request $request)
+    {
+        $form = $this->createForm(ParticipantEditType::class, $participant);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();    
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'Le participant a bien été modifié.');
+
+            return $this->redirectToRoute('peloton.show', array('tournament' => $peloton->getTournament()->getId(), 'peloton' => $peloton->getId()));
+        }
+
+        return $this->render(
+            'participant/edit.html.twig',
+            array('form' => $form->createView(), 'participant' => $participant, 'peloton' => $peloton)
         );
     }
 }

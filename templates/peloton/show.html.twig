@@ -22,6 +22,7 @@
             <th>Points</th>
             <th>X</th>
             <th>10</th>
+            <th>Action</th>
         </tr>
         <tr>
         {% for participant in peloton.participants %}    
@@ -29,8 +30,9 @@
             <td>{{ participant.points }}</td>
             <td>{{ participant.numberofx }}</td>
             <td>{{ participant.numberoften }}</td>
+            <td><a href="{{ path('participant.edit', {'tournament': peloton.tournament.id, 'peloton': peloton.id, 'participant': participant.id }) }}">Edit</a></td>
         {% else %}
-            <td colspan="4">Aucun participant pour l'instant</td>
+            <td colspan="5">Aucun participant pour l'instant</td>
         {% endfor %}
         </tr>
     </table>
